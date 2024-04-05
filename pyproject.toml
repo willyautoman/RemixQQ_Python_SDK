@@ -1,0 +1,26 @@
+[project]
+name = "RemixQQ_Python_SDK"
+version = "0.0.1"
+description = "A python SDK for RemixQQ connected by httpapi"
+authors = [
+    {name = "404_NOT_FOUND", email = "1127738407@qq.com"},
+]
+dependencies = [
+    "requests>=2.31.0",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.pdm]
+distribution = true
+
+[[tool.pdm.source]]
+name = "tuna-tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
