@@ -1,6 +1,3 @@
-以下是`app.py`文件中所有函数注释按照标准格式修改后的内容：
-
-```python
 import requests
 
 class App:
@@ -259,3 +256,7 @@ class App:
         res = self.__send_request(params)
         if res['msg'] == '成功':
             member_list = res['data']['ret']
+            member_list.pop()
+            return member_list
+        else:
+            return res
