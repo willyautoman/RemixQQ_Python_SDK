@@ -111,3 +111,30 @@ class App:
             }
         }
         return self.__send_request(params)
+
+    def send_group_message(self, target_group: str, is_annoymous: int, content: str, bubble_id: int = 0):
+        """
+    发送好友消息的方法
+
+    参数:
+    - target_group (str): 目标群的QQ号
+    - content (str): 消息内容
+    - bubble_id (int): 气泡ID，默认为0使用本来的气泡，-1为随机气泡
+
+    返回值:
+    无
+    """
+        params = {
+            "function": "Api_SendMsgEx",
+            "token": self.token,
+            'params': {
+                'c1': self.qq,
+                'c2': is_annoymous if is_annoymous not in [0, 1] else 0,
+                'c3': 2,
+                'c4': target_group,
+                'c5': '',
+                'c6': content,
+                'c7': bubble_id
+            }
+        }
+        return self.__send_request(params)
