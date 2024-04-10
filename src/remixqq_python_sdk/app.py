@@ -112,25 +112,27 @@ class App:
         }
         return self.__send_request(params)
 
-    def send_group_message(self, target_group: str, is_annoymous: int, content: str, bubble_id: int = 0):
+    def send_group_message(self, target_group: str, is_anonymous: int,group_type: int, content: str, bubble_id: int = 0):
         """
-    发送好友消息的方法
+        发送群组消息的函数。
 
-    参数:
-    - target_group (str): 目标群的QQ号
-    - content (str): 消息内容
-    - bubble_id (int): 气泡ID，默认为0使用本来的气泡，-1为随机气泡
+        参数:
+        target_group (str): QQ群号。
+        is_anonymous (int): 是否匿名发送，0为非匿名，1为匿名。
+        group_type (int): 群组类型，2群 3讨论组 4群临时会话 5讨论组临时会话
+        content (str): 消息的内容。
+        bubble_id (int, 可选): 气泡ID，用于特定的消息样式，默认为0。
 
-    返回值:
-    无
-    """
+        返回:
+        发送请求的结果，通常为成功或失败的信息。
+        """
         params = {
             "function": "Api_SendMsgEx",
             "token": self.token,
             'params': {
                 'c1': self.qq,
-                'c2': is_annoymous if is_annoymous not in [0, 1] else 0,
-                'c3': 2,
+                'c2': is_anonymous if is_anonymous not in [0, 1] else 0,
+                'c3': group_type if group_type not in [2, 3, 4, 5] else 2,
                 'c4': target_group,
                 'c5': '',
                 'c6': content,
