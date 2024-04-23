@@ -289,3 +289,43 @@ class App:
             return member_list
         else:
             return res
+
+    def get_group_admin_list(self, target_group: str) -> dict:
+        """
+        获取群组管理员列表。(疑似已废弃）
+
+        参数:
+        - target_group (str): 目标群组的ID。
+
+        返回值:
+        - list: 管理员列表，包含群组成员的QQ号。如果获取失败，返回错误信息。
+        """
+        params = {
+            "function": "Api_GetAdminList",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+                'c2': target_group
+            }
+        }
+
+        return self.__send_request(params)
+
+    def get_cookies(self) -> dict:
+        """
+        取得机器人网页操作用的Cookies
+
+        返回值：
+        """
+        params = {
+            "function": "Api_GetCookies",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+
+        return self.__send_request(params)
+
+
+
