@@ -1,26 +1,31 @@
 import requests
 
+
 class App:
-    """App类用于创建和管理应用程序实例。
+    """
+    App类用于创建和管理应用程序实例。
 
     属性:
     - name: 应用程序的名称，字符串类型。
     """
 
     def __init__(self, url: str, token: str, qq: str) -> None:
-        """类的初始化方法。
+        """
+        类的初始化方法。
 
         参数:
         - url (str): 提供服务的URL，格式通常应为“http://localhost:Port/MyQQHTTPAPI”。
         - token (str): 用于认证的令牌。
         - qq (str): 机器人QQ号。
         """
+
         self.url = url
         self.token = token
         self.qq = qq
 
-    def __send_request(self, params) -> dict:
-        """发送请求到服务端。
+    def __send_request(self, params: dict) -> dict:
+        """
+        发送请求到服务端。
 
         参数:
         - params (dict): 请求的参数。
@@ -28,16 +33,19 @@ class App:
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         Session = requests.Session()
         result = Session.post(self.url, json=params)
         return result.json()
 
     def get_version(self) -> str:
-        """获取框架版本号。
+        """
+        获取框架版本号。
 
         返回值:
         - str: 框架的版本号。
         """
+
         params = {
             "function": "Api_GetVer",
             "token": self.token,
@@ -45,11 +53,13 @@ class App:
         return self.__send_request(params)
 
     def get_time_stamp(self) -> int:
-        """获取当前框架内部时间戳。
+        """
+        获取当前框架内部时间戳。
 
         返回值:
         - int: 当前框架内部的时间戳。
         """
+
         params = {
             "function": "Api_GetTimeStamp",
             "token": self.token,
@@ -57,7 +67,8 @@ class App:
         return self.__send_request(params)
 
     def log_to_myqq(self, message: str) -> dict:
-        """在框架记录页输出一行信息。
+        """
+        在框架记录页输出一行信息。
 
         参数:
         - message (str): 要输出的内容。
@@ -65,6 +76,7 @@ class App:
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         params = {
             "function": "Api_OutPut",
             "token": self.token,
@@ -75,7 +87,8 @@ class App:
         return self.__send_request(params)
 
     def get_nick(self, target_qq: str) -> str:
-        """获取指定QQ号的昵称。
+        """
+        获取指定QQ号的昵称。
 
         参数:
         - target_qq (str): 目标QQ号。
@@ -83,6 +96,7 @@ class App:
         返回值:
         - str: 目标QQ号的昵称。如果无法获取，则返回空字符串。
         """
+
         params = {
             "function": "Api_GetNick",
             "token": self.token,
@@ -94,20 +108,22 @@ class App:
         return self.__send_request(params)
 
     def send_friend_msg(self, target_qq: str, content: str, bubble_id: int = 0) -> dict:
-        """发送好友消息的方法。
+        """
+        发送好友消息的方法。
 
         参数:
         - target_qq (str): 目标好友的QQ号。
         - content (str): 消息内容。
-        - bubble_id (int, 可选): 气泡ID，默认为0使用本来的气泡，-1为随机气泡。
+        - bubble_id (int, optional): 气泡ID，默认为0使用本来的气泡，-1为随机气泡。
 
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         params = {
             "function": "Api_SendMsgEx",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq,
                 'c2': 0,
                 'c3': 1,
@@ -119,26 +135,29 @@ class App:
         }
         return self.__send_request(params)
 
-    def send_group_message(self, target_group: str, is_anonymous: int, group_type: int, content: str, bubble_id: int = 0) -> dict:
-        """发送群组消息的函数。
+    def send_group_message(self, target_group: str, is_anonymous: int, group_type: int, content: str,
+                           bubble_id: int = 0) -> dict:
+        """
+        发送群组消息的函数。
 
         参数:
         - target_group (str): QQ群号。
         - is_anonymous (int): 是否匿名发送，0为非匿名，1为匿名。
         - group_type (int): 群组类型，2群 3讨论组 4群临时会话 5讨论组临时会话。
         - content (str): 消息的内容。
-        - bubble_id (int, 可选): 气泡ID，用于特定的消息样式，默认为0。
+        - bubble_id (int, optional): 气泡ID，用于特定的消息样式，默认为0。
 
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         params = {
             "function": "Api_SendMsgEx",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq,
-                'c2': is_anonymous if is_anonymous not in [0, 1] else 0,
-                'c3': group_type if group_type not in [2, 3, 4, 5] else 2,
+                'c2': is_anonymous,
+                'c3': group_type,
                 'c4': target_group,
                 'c5': '',
                 'c6': content,
@@ -148,26 +167,29 @@ class App:
         return self.__send_request(params)
 
     def get_friend_list(self) -> list:
-        """获取好友列表。
+        """
+        获取好友列表。
 
         返回值:
         - list: 好友列表，包含好友的QQ号。如果获取失败，返回错误信息。
         """
+
         params = {
             "function": "Api_GetFriendList",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq
             }
         }
         res = self.__send_request(params)
-        if res['msg'] == '成功':
-            return res['data']['ret']['result']
+        if res.get('msg') == '成功':
+            return res.get('data', {}).get('ret', {}).get('result', [])
         else:
             return res
 
     def send_group_message_json(self, target_group: str, group_type: int, json_str: str) -> dict:
-        """向指定群组发送JSON格式的消息。
+        """
+        向指定群组发送JSON格式的消息。
 
         参数:
         - target_group (str): 目标群组的ID或号码。
@@ -177,13 +199,14 @@ class App:
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         params = {
             "function": "Api_SendJson",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq,
                 'c2': 0,
-                'c3': group_type if group_type not in [2, 3, 4, 5] else 2,
+                'c3': group_type,
                 'c4': target_group,
                 'c5': '',
                 'c6': json_str
@@ -192,7 +215,8 @@ class App:
         return self.__send_request(params)
 
     def send_group_message_xml(self, target_group: str, group_type: int, xml_str: str) -> dict:
-        """向指定群组发送XML格式的消息。
+        """
+        向指定群组发送XML格式的消息。
 
         参数:
         - target_group (str): 目标群组的ID或号码。
@@ -202,13 +226,14 @@ class App:
         返回值:
         - dict: 服务端返回的响应数据。
         """
+
         params = {
             "function": "Api_SendXml",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq,
                 'c2': 0,
-                'c3': group_type if group_type not in [2, 3, 4, 5] else 2,
+                'c3': group_type,
                 'c4': target_group,
                 'c5': '',
                 'c6': xml_str,
@@ -218,26 +243,29 @@ class App:
         return self.__send_request(params)
 
     def get_group_list(self) -> list:
-        """获取群组列表。
+        """
+        获取群组列表。
 
         返回值:
         - list: 群组列表，包含群组的ID。如果获取失败，返回错误信息。
         """
+
         params = {
             "function": "Api_GetGroupList_B",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq
             }
         }
         res = self.__send_request(params)
-        if res['msg'] == '成功':
-            return res['data']['ret']['join']
+        if res.get('msg') == '成功':
+            return res.get('data', {}).get('ret', {}).get('join', [])
         else:
             return res
 
     def get_group_member_list(self, target_group: str) -> list:
-        """获取群组成员列表。
+        """
+        获取群组成员列表。
 
         参数:
         - target_group (str): 目标群组的ID。
@@ -245,18 +273,19 @@ class App:
         返回值:
         - list: 群组成员列表，包含群组成员的QQ号。如果获取失败，返回错误信息。
         """
+
         params = {
             "function": "Api_GetGroupMemberList_B",
             "token": self.token,
-            'params': {
+            "params": {
                 'c1': self.qq,
                 'c2': target_group
             }
         }
         res = self.__send_request(params)
-        if res['msg'] == '成功':
-            member_list = res['data']['ret']
-            member_list.pop()
+        if res.get('msg') == '成功':
+            member_list = res.get('data', {}).get('ret', [])
+            member_list.pop()  # 假设最后一个元素是空的，根据上下文移除
             return member_list
         else:
             return res
