@@ -42,13 +42,14 @@ if __name__ == '__main__':
     print("Starting server, listen at: %s:%s" % host)
     server.serve_forever()
 ```
-TODO:
-1.将API完整复刻至Python
-2.实现一个包即可完成消息收发
+## TODO:
+1. 将API完整复刻至Python
+2. 实现一个包即可完成消息收发
+3. 建立API文档
 
 ## Release Note
 ### 0.0.1（发布日期：2024年4月26日）
 1. 已完成基础功能
 2. 发布包至PYPI，可使用pip安装
 3. 新增代办：建立API文档
-
+4. 
