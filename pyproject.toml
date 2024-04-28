@@ -24,3 +24,7 @@ distribution = true
 name = "tuna-tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 verify_ssl = true
+
+[project.urls]
+"Homepage" = "https://github.com/willyautoman/RemixQQ_Python_SDK"
+"Bug Tracker" = "https://github.com/willyautoman/RemixQQ_Python_SDK/issues"

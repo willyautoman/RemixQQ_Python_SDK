@@ -14,7 +14,7 @@
    2. 在“回调”界面配置接收消息用的地址（重要！！！）
    ![](https://image-bed.ityun.tech/2.png)
 
-2. 使用pip安装（开发中，暂无法安装）
+2. 使用pip安装
 ```shell
 pip install RemixQQ_Python_SDK
 ```
@@ -45,4 +45,10 @@ if __name__ == '__main__':
 TODO:
 1.将API完整复刻至Python
 2.实现一个包即可完成消息收发
+
+## Release Note
+### 0.0.1（发布日期：2024年4月26日）
+1. 已完成基础功能
+2. 发布包至PYPI，可使用pip安装
+3. 新增代办：建立API文档
 
