@@ -327,5 +327,81 @@ class App:
 
         return self.__send_request(params)
 
+    def get_blog_pskey(self) -> dict:
+        """
+        取得腾讯微博页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetBlogPsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
 
+    def get_zone_pskey(self) -> dict:
+        """
+        取得QQ空间页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetZonePsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
 
+    def get_group_pskey(self) -> dict:
+        """
+        取得QQ群页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetGroupPsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
+
+    def get_classroom_pskey(self) -> dict:
+        """
+        取得QQ教室页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetClassRoomPsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
+
+    def get_ten_pay_pskey(self) -> dict:
+        """
+        取得QQ钱包页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetTenPayPsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
+
+    def get_jubao_pskey(self) -> dict:
+        """
+        取得QQ举报页面操作用参数P_skey
+        """
+        params = {
+            "function": "Api_GetJuBaoPsKey",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+
+        return self.__send_request(params)
