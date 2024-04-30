@@ -1,10 +1,8 @@
 name: Build and Publish to PyPI
 
 
-on:
-  push:
-    tags:
-      - '*'
+on: push
+
 
 jobs:
   build-and-publish:
@@ -20,6 +18,15 @@ jobs:
         python -m pip install pdm
     - name: Install dependencies
       run: pdm install
+    - name: Generate version number
+      run: |
+        VERSION=$(date +%Y%m%d)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Update pyproject.toml with new version
+      run: |
+        sed -i "s/version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+
     - name: Publish package
       env:
         PDM_PUBLISH_USERNAME: ${{ secrets.PDM_PUBLISH_USERNAME }}
