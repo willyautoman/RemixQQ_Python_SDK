@@ -405,3 +405,17 @@ class App:
         }
 
         return self.__send_request(params)
+
+    def get_bkn(self) -> dict:
+        """
+        取得机器人网页操作用参数Bkn或G_tk
+        """
+        params = {
+            "function": "Api_GetBkn",
+            "token": self.token,
+            "params": {
+                'c1': self.qq,
+            }
+        }
+        return self.__send_request(params)
+

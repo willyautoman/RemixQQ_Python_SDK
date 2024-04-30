@@ -1,0 +1,28 @@
+name: Build and Publish to PyPI
+
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' # 指定Python版本
+    - name: Install PDM
+      run: |
+        python -m pip install pdm
+    - name: Install dependencies
+      run: pdm install
+    - name: Publish package
+      env:
+        PDM_PUBLISH_USERNAME: ${{ secrets.PDM_PUBLISH_USERNAME }}
+        PDM_PUBLISH_PASSWORD: ${{ secrets.PDM_PUBLISH_PASSWORD }}
+      run: |
+        pdm publish -u ${PDM_PUBLISH_USERNAME} -p ${PDM_PUBLISH_PASSWORD}
