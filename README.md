@@ -22,12 +22,13 @@ pip install RemixQQ_Python_SDK
 1. 使用以下代码进行初始化
 ```python
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from remixqq_python_sdk.app import App
 import json
 import urllib.parse
 import random
 import requests
 host = ('localhost', 8082) #接收消息地址（需与上方配置界面一致）
-url = 'http://localhost:8081/MyQQHTTPAPI'  #发送消息地址
+app = App('http://localhost:8081/MyQQHTTPAPI', "Token", "QQ")
 class Resquest(BaseHTTPRequestHandler):
     def do_POST(self):
         datas = self.rfile.read(int(self.headers['content-length'])).decode()
@@ -35,7 +36,8 @@ class Resquest(BaseHTTPRequestHandler):
         from_qun = urllib.parse.unquote(datas['MQ_fromID']) #获取消息来源群号
         msg = urllib.parse.unquote(datas['MQ_msg']) #获取消息内容
         # do something
-        print(datas)
+        response = app.send_group_message("123",0,0,"test")
+        print(response)
 
 if __name__ == '__main__':
     server = HTTPServer(host, Resquest)
